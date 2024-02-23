@@ -1,6 +1,5 @@
 # Note: This code sample requires OpenAI Python library version 0.28.1 or lower.
 # Note: The openai-python library support for Azure OpenAI is in preview.
-
 from datetime import datetime as now
 import os
 from azure.storage.blob import BlobServiceClient
@@ -11,28 +10,31 @@ from reportlab.pdfgen import canvas
 from decouple import config
 
 
-AZURE_ENDPOINT = config("AZURE_ENDPOINT")
-API_VERSION = config("API_VERSION")
-API_KEY = config("API_KEY")
-STORAGE_ACCOUNT_NAME = config("STORAGE_ACCOUNT_NAME")
+
+# AZURE_ENDPOINT = config("AZURE_ENDPOINT")
+# API_VERSION = config("API_VERSION")
+# API_KEY = config("API_KEY")
+# STORAGE_ACCOUNT_NAME = config("STORAGE_ACCOUNT_NAME")
 
 
-CONNECTION_STRING = config("CONNECTION_STRING")
-CONTAINER_NAME = config("CONTAINER_NAME")
+# CONNECTION_STRING = config("CONNECTION_STRING")
+# CONTAINER_NAME = config("CONTAINER_NAME")
 
 
-client = AzureOpenAI(azure_endpoint=AZURE_ENDPOINT,
-                     api_version=API_VERSION,
-                     api_key=API_KEY)
+
+client = AzureOpenAI(azure_endpoint="https://judi.openai.azure.com/",
+                     api_version="2024-02-15-preview",
+                     api_key="56366effe036483aae6c211a1ef7e119")
 
 message_text = [
-    {"role": "system", "content": "Tu t'appelle Franck. Tu es une assistant de chat qui peut repondre à des questions sur les assurances."},
+    {"role": "system", "content": "Tu t'appelle JUDY. Tu es une assistant de chat qui peut repondre à des questions sur les assurances."},
     {"role": "user", "content": "Redige une demande de perte ? a GNA assurances"},
 ]
 
 
 def send_chat(messages_list: list[Message]):
-    response = client.chat.completions.create(model="gpt4france",
+    response = client.chat.completions.create(model="judi_FA",
+                                              
                                               messages=messages_list,
                                               temperature=0.7,
                                               max_tokens=800,
